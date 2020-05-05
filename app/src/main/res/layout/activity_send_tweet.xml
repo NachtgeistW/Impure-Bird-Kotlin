@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.nachtgeistw.impurebirdkt.SendTweetActivity">
+
+    <EditText
+        android:id="@+id/edit_text_tweet_info"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="top|start"
+        android:hint="@string/hint_edit_text"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine"
+        android:background="@null"
+        app:layout_constraintStart_toStartOf="@id/guideline_verticalS"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_verticalS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.03" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_verticalE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.97" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier_for_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="start"
+        app:constraint_referenced_ids="guideline_verticalE, edit_text_tweet_info"
+        tools:layout_editor_absoluteX="21dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
