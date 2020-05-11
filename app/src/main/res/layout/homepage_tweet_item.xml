@@ -9,7 +9,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:theme="@style/Theme.MaterialComponents.Light">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,6 +20,7 @@
             android:id="@+id/homepage_tweet_user_avatar"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginTop="5dp"
             app:layout_constraintStart_toStartOf="@id/guideline_verticalS"
             app:layout_constraintTop_toTopOf="@id/guideline_horizontalT" />
 
@@ -28,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="for debug"
+            android:layout_marginTop="5dp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/homepage_tweet_user_avatar"
             app:layout_constraintTop_toTopOf="@id/guideline_horizontalT" />
