@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2020/5/4 (YYYY/MM/DD)
+ * Copyright (c) 2020/5/6 (YYYY/MM/DD)
  * Created by NachtgeistW.
  * This file is used to:
  *
  */
 
-package com.nachtgeistw.impurebirdkt
+package com.nachtgeistw.impurebirdkt.activity
 
 import android.content.Context
 import android.content.Intent
@@ -23,16 +23,17 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
+import com.nachtgeistw.impurebirdkt.R
+import com.nachtgeistw.impurebirdkt.net.SendingUtil.sendTweet
+import com.nachtgeistw.impurebirdkt.net.TimelineUtil.pullHomeTimeline
 import com.nachtgeistw.impurebirdkt.util.ActivityCollector.finishAll
-import com.nachtgeistw.impurebirdkt.util.Key
-import com.nachtgeistw.impurebirdkt.util.Key.Companion.TWEET_CONTENT
+import com.nachtgeistw.impurebirdkt.util.ImpureBirdApplication
 import com.nachtgeistw.impurebirdkt.util.ReturnCode.Companion.SEND_TWEET
 import com.nachtgeistw.impurebirdkt.util.TwitterErrorCode.Companion.DUPLICATE_CODE
+import com.nachtgeistw.impurebirdkt.util.Util.Companion.buildTwitter
 import com.nachtgeistw.impurebirdkt.util.Util.Companion.showToastShort
 import kotlinx.coroutines.*
-import twitter4j.Twitter
-import twitter4j.TwitterException
-import twitter4j.TwitterFactory
+import twitter4j.*
 import twitter4j.auth.AccessToken
 import twitter4j.conf.ConfigurationBuilder
 import java.lang.Runnable
@@ -46,13 +47,17 @@ class HomepageActivity : AppCompatActivity(), CoroutineScope {
         get() = Dispatchers.Main + job
 
     // Preparing for using Twitter4j
-    private lateinit var twitter: Twitter
+    private lateinit var statusList: List<Status>
+    lateinit var twitter: Twitter
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_homepage)
+        // Twitter4j init
+        twitter = buildTwitter(this)
+
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
@@ -69,15 +74,11 @@ class HomepageActivity : AppCompatActivity(), CoroutineScope {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
-            ), drawerLayout
+            setOf(R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        // Twitter4j init
-        twitter = buildTwitter(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -102,8 +103,8 @@ class HomepageActivity : AppCompatActivity(), CoroutineScope {
             return
         }
         this.doubleBackToExitPressedOnce = true
-        showToastShort(this, getString(R.string.double_click_to_exit))
-        Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
+        showToastShort(getString(R.string.double_click_to_exit))
+        Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
     }
 
     //对通过intent返回的数据做处理（这里只有一个send_tweet）
@@ -111,49 +112,11 @@ class HomepageActivity : AppCompatActivity(), CoroutineScope {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             SEND_TWEET -> if (resultCode == RESULT_OK) {
-                sendTweet(this, twitter, data!!.getStringExtra(TWEET_CONTENT))
+                runBlocking { sendTweet(twitter, data!!.getStringExtra("tweet_content")) }
             }
         }
     }
 
-    // Send tweet
-    private fun sendTweet(activity: HomepageActivity, twitter: Twitter, tweetContent: String?) {
-        var resultCode = 0
-        // Update status runs
-        activity.launch {
-            withContext(Dispatchers.Default) {
-                Log.i(
-                    "Twitter",
-                    "${javaClass.simpleName} > SendTweetActivity > doInBackground > true"
-                )
-                try {
-                    twitter.updateStatus(tweetContent)
-                } catch (e: TwitterException) {
-                    Log.i("Twitter", "${e.errorCode}: ${e.errorMessage}")
-                    resultCode = e.errorCode
-                    e.printStackTrace()
-                }
-            }
-            // Show result
-            when (resultCode) {
-                0 -> showToastShort(activity, "Tweet sent.")
-                DUPLICATE_CODE -> showToastShort(activity, "Duplicate tweet.")
-                else -> showToastShort(activity, "Tweet sent failed.")
-            }
-        }
 
-    }
 
-    companion object {
-        fun buildTwitter(activity: HomepageActivity): Twitter {
-            val sharedPreferences = activity.getSharedPreferences("data", Context.MODE_PRIVATE)
-            val builder = ConfigurationBuilder()
-            builder.setOAuthConsumerKey(Key.CONSUMER_KEY)
-            builder.setOAuthConsumerSecret(Key.CONSUMER_SECRET_KEY)
-            val token: String? = sharedPreferences.getString("token", "")
-            val tokenSecret: String? = sharedPreferences.getString("token_secret", "")
-            val accessToken = AccessToken(token, tokenSecret)
-            return TwitterFactory(builder.build()).getInstance(accessToken)
-        }
-    }
 }

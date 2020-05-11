@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2020/5/6 (YYYY/MM/DD)
+  ~ Created by NachtgeistW.
+  ~ This file is used to:
+  ~ Show abstract of tweets in homepage
+  -->
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/Theme.MaterialComponents.Light">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/homepage_tweet_user_avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="@id/guideline_verticalS"
+            app:layout_constraintTop_toTopOf="@id/guideline_horizontalT" />
+
+        <TextView
+            android:id="@+id/homepage_tweet_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="for debug"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/homepage_tweet_user_avatar"
+            app:layout_constraintTop_toTopOf="@id/guideline_horizontalT" />
+
+        <TextView
+            android:id="@+id/homepage_tweet_user_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toStartOf="@id/homepage_barrier"
+            app:layout_constraintStart_toStartOf="@id/guideline_verticalS"
+            app:layout_constraintTop_toBottomOf="@id/homepage_tweet_user_avatar"
+            app:layout_constraintWidth_default="wrap" />
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/homepage_tweet_pic_1"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            android:layout_marginTop="10dp"-->
+        <!--            android:layout_marginEnd="2dp"-->
+        <!--            android:scaleType="centerCrop"-->
+        <!--            app:layout_constraintDimensionRatio="1:1"-->
+        <!--            app:layout_constraintEnd_toEndOf="@id/guideline_vertical_27"-->
+        <!--            app:layout_constraintHorizontal_chainStyle="spread"-->
+        <!--            app:layout_constraintStart_toStartOf="@id/guideline_verticalS"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/homepage_tweet_user_text"-->
+        <!--            app:layout_constraintVertical_chainStyle="spread"-->
+        <!--            tools:ignore="ContentDescription" />-->
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/homepage_tweet_pic_2"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            android:layout_marginTop="10dp"-->
+        <!--            android:layout_marginEnd="2dp"-->
+        <!--            android:scaleType="centerCrop"-->
+        <!--            app:layout_constraintDimensionRatio="1:1"-->
+        <!--            app:layout_constraintEnd_toStartOf="@id/guideline_verticalC"-->
+        <!--            app:layout_constraintStart_toEndOf="@id/guideline_vertical_27"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/homepage_tweet_user_text"-->
+        <!--            app:layout_constraintVertical_chainStyle="spread"-->
+        <!--            tools:ignore="ContentDescription" />-->
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/homepage_tweet_pic_3"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            android:layout_marginTop="10dp"-->
+        <!--            android:layout_marginEnd="2dp"-->
+        <!--            android:scaleType="centerCrop"-->
+        <!--            app:layout_constraintDimensionRatio="1:1"-->
+        <!--            app:layout_constraintEnd_toStartOf="@id/guideline_vertical_72"-->
+        <!--            app:layout_constraintStart_toEndOf="@id/guideline_verticalC"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/homepage_tweet_user_text"-->
+        <!--            tools:ignore="ContentDescription" />-->
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/homepage_tweet_pic_4"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            android:layout_marginTop="10dp"-->
+        <!--            android:layout_marginEnd="2dp"-->
+        <!--            android:scaleType="centerCrop"-->
+        <!--            app:layout_constraintDimensionRatio="1:1"-->
+        <!--            app:layout_constraintEnd_toStartOf="@id/guideline_verticalE"-->
+        <!--            app:layout_constraintStart_toEndOf="@id/guideline_vertical_72"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/homepage_tweet_user_text"-->
+        <!--            tools:ignore="ContentDescription" />-->
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_horizontalT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.03" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_verticalS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_vertical_27"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.275" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_verticalC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.50" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_vertical_72"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.725" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_verticalE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/homepage_barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="start"
+            app:constraint_referenced_ids="guideline_verticalE, homepage_tweet_user_text" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

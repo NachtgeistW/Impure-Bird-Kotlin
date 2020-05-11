@@ -1,4 +1,11 @@
-package com.nachtgeistw.impurebirdkt
+/*
+ * Copyright (c) 2020/5/6 (YYYY/MM/DD)
+ * Created by NachtgeistW.
+ * This file is used to:
+ *
+ */
+
+package com.nachtgeistw.impurebirdkt.activity
 
 import android.content.Context
 import android.content.Intent
@@ -7,9 +14,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.nachtgeistw.impurebirdkt.util.BaseActivity
-import com.nachtgeistw.impurebirdkt.util.Key.Companion.CONSUMER_KEY
-import com.nachtgeistw.impurebirdkt.util.Key.Companion.CONSUMER_SECRET_KEY
+import com.nachtgeistw.impurebirdkt.R
+import com.nachtgeistw.impurebirdkt.util.ImpureBirdApplication.Companion.CONSUMER_KEY
+import com.nachtgeistw.impurebirdkt.util.ImpureBirdApplication.Companion.CONSUMER_SECRET_KEY
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import twitter4j.auth.OAuthAuthorization
@@ -18,7 +25,6 @@ import twitter4j.conf.ConfigurationContext
 import kotlin.coroutines.CoroutineContext
 
 class MainActivity : AppCompatActivity(), CoroutineScope {
-
 
     //コルーチンを使うための準備
     private val job = Job()

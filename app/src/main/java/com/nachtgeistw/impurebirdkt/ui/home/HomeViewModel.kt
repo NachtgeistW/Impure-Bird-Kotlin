@@ -1,13 +1,18 @@
 package com.nachtgeistw.impurebirdkt.ui.home
 
+import android.widget.ImageButton
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import twitter4j.Status
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(statusReserved: Status) : ViewModel() {
+    private val _status = MutableLiveData<Status>()
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+    init {
+        _status.value = statusReserved
     }
-    val text: LiveData<String> = _text
+
+    var userName: LiveData<String> = Transformations.map(_status) { status -> status.user.name }
 }

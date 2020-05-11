@@ -1,20 +1,19 @@
 /*
- * Copyright (c) 2020/5/4 (YYYY/MM/DD)
+ * Copyright (c) 2020/5/6 (YYYY/MM/DD)
  * Created by NachtgeistW.
  * This file is used to:
  *
  */
 
-package com.nachtgeistw.impurebirdkt
+package com.nachtgeistw.impurebirdkt.activity
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.nachtgeistw.impurebirdkt.util.Key.Companion.TWEET_CONTENT
+import com.nachtgeistw.impurebirdkt.R
 import com.nachtgeistw.impurebirdkt.util.Util
 import kotlinx.android.synthetic.main.activity_send_tweet.*
 
@@ -40,12 +39,12 @@ class SendTweetActivity : AppCompatActivity() {
             // Send key
             R.id.action_send -> {
                 if (edit_text_tweet_info.text.isEmpty()) {
-                    Util.showToastShort(this, getString(R.string.warning_tweet_content_is_empty))
+                    Util.showToastShort(getString(R.string.warning_tweet_content_is_empty))
                     return super.onOptionsItemSelected(item)
                 } else {
                     val tweetContent: String = edit_text_tweet_info.text.toString()
                     val intent = Intent()
-                    intent.putExtra(TWEET_CONTENT, tweetContent)
+                    intent.putExtra("tweet_content", tweetContent)
                     //把获取到的推文内容传回上级Activity
                     setResult(Activity.RESULT_OK, intent)
                     finish()

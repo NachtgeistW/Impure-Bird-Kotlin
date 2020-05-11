@@ -7,27 +7,26 @@
 
 package com.nachtgeistw.impurebirdkt.util
 
-import android.content.Context
 import android.content.Intent
-import com.nachtgeistw.impurebirdkt.HomepageActivity
-import com.nachtgeistw.impurebirdkt.MainActivity
-import com.nachtgeistw.impurebirdkt.SendTweetActivity
+import com.nachtgeistw.impurebirdkt.activity.HomepageActivity
+import com.nachtgeistw.impurebirdkt.activity.MainActivity
+import com.nachtgeistw.impurebirdkt.activity.SendTweetActivity
 
 interface UseIntentToStartActivity {
     companion object{
-        fun mainActivityStart(context: Context) {
-            val intent = Intent(context, MainActivity::class.java)
-            context.startActivity(intent)
+        fun mainActivityStart() {
+            val intent = Intent(ImpureBirdApplication.context, MainActivity::class.java)
+            ImpureBirdApplication.context.startActivity(intent)
         }
 
-        fun homepageActivityStart(context: Context) {
-            val intent = Intent(context, HomepageActivity::class.java)
-            context.startActivity(intent)
+        fun homepageActivityStart() {
+            val intent = Intent(ImpureBirdApplication.context, HomepageActivity::class.java)
+            ImpureBirdApplication.context.startActivity(intent)
         }
 
-        fun sendTweetActivityStart(context: Context) {
-            val intent = Intent(context, SendTweetActivity::class.java)
-            context.startActivity(intent)
+        fun sendTweetActivityStart() {
+            val intent = Intent(ImpureBirdApplication.context, SendTweetActivity::class.java)
+            ImpureBirdApplication.context.startActivity(intent)
         }
     }
 }
