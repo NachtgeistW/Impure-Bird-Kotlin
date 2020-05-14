@@ -67,6 +67,7 @@ class HomeFragment : Fragment(), CoroutineScope {
         //设置recyclerView
         recyclerView = root.findViewById(R.id.home_timeline_recyclerview)
         recyclerView.layoutManager = GridLayoutManager(context, 1)
+//        recyclerView.setItemViewCacheSize(0)
 
         //设置下拉刷新
         swipeRefreshLayout = root.findViewById(R.id.home_timeline_swipe_refresh)

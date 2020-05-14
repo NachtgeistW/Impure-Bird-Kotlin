@@ -17,6 +17,7 @@ import twitter4j.Paging
 import twitter4j.Status
 import twitter4j.Twitter
 import twitter4j.TwitterException
+import java.lang.Exception
 
 object TimelineUtil {
     suspend fun pullHomeTimeline(twitter: Twitter): List<Status> {
@@ -27,12 +28,14 @@ object TimelineUtil {
                     "Twitter",
                     "TimelineUtil > pullHomeTimeline"
                 )
-                statusList = twitter.getHomeTimeline(Paging(1, 50))
+                statusList = twitter.getHomeTimeline(Paging(1, 100))
             }
         } catch (e: TwitterException) {
             showToastLong(context.getString(R.string.pull_home_timeline_failed))
             Log.e("Twitter", "${e.exceptionCode}: ${e.errorMessage}")
             e.printStackTrace()
+        } catch (e: Exception) {
+
         }
 
         return statusList

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) 2020/5/6 (YYYY/MM/DD)
+  ~ Copyright (c) 2020/5/12 (YYYY/MM/DD)
   ~ Created by NachtgeistW.
   ~ This file is used to:
-  ~ Show abstract of tweets in homepage
+  ~
   -->
 
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:theme="@style/Theme.MaterialComponents.Light">
@@ -20,7 +21,6 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginTop="5dp"
-
             app:layout_constraintStart_toStartOf="@id/guideline_verticalS"
             app:layout_constraintTop_toTopOf="@id/guideline_horizontalT" />
 
@@ -44,12 +44,40 @@
             app:layout_constraintStart_toStartOf="@id/guideline_verticalS"
             app:layout_constraintTop_toBottomOf="@id/homepage_tweet_user_avatar" />
 
+        <ImageView
+            android:id="@+id/homepage_tweet_pic_1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="2dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@id/guideline_vertical_27"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="@id/guideline_verticalS"
+            app:layout_constraintTop_toBottomOf="@id/homepage_tweet_user_text"
+            app:layout_constraintVertical_chainStyle="spread"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/homepage_tweet_pic_2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="2dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@id/guideline_verticalC"
+            app:layout_constraintStart_toEndOf="@id/guideline_vertical_27"
+            app:layout_constraintTop_toBottomOf="@id/homepage_tweet_user_text"
+            app:layout_constraintVertical_chainStyle="spread"
+            tools:ignore="ContentDescription" />
+
         <include
             layout="@layout/tab_like_comment_rt_bar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintTop_toBottomOf="@id/homepage_tweet_user_text" />
-
+            app:layout_constraintTop_toBottomOf="@id/homepage_tweet_pic_1" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_horizontalT"
