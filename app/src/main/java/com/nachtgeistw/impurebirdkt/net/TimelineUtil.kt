@@ -20,8 +20,8 @@ import twitter4j.TwitterException
 import java.lang.Exception
 
 object TimelineUtil {
-    suspend fun pullHomeTimeline(twitter: Twitter): List<Status> {
-        lateinit var statusList: List<Status>
+    suspend fun pullHomeTimeline(twitter: Twitter): List<Status>? {
+        var statusList: List<Status>? = null
         try {
             withContext(Dispatchers.IO) {
                 Log.i(
@@ -35,9 +35,10 @@ object TimelineUtil {
             Log.e("Twitter", "${e.exceptionCode}: ${e.errorMessage}")
             e.printStackTrace()
         } catch (e: Exception) {
-
+            showToastLong(context.getString(R.string.pull_home_timeline_failed))
+            Log.e("Twitter", "${e.message}")
+            e.printStackTrace()
         }
-
         return statusList
     }
 }

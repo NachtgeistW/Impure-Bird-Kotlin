@@ -12,6 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.PicActivity"></activity>
+        <activity
+            android:name=".activity.DetailPageActivity"
+            android:label="@string/title_activity_detail_page"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.SendTweetActivity"
             android:label="@string/title_activity_send_tweet" />

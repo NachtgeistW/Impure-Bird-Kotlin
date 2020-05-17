@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.nachtgeistw.impurebirdkt.R
@@ -17,6 +15,7 @@ import com.nachtgeistw.impurebirdkt.activity.HomepageActivity
 import com.nachtgeistw.impurebirdkt.databinding.FragmentHomeBinding
 import com.nachtgeistw.impurebirdkt.net.TimelineUtil
 import com.nachtgeistw.impurebirdkt.ui.TweetAdapter
+import com.nachtgeistw.impurebirdkt.ui.TweetItemDecoration
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -27,7 +26,7 @@ import kotlin.coroutines.CoroutineContext
 class HomeFragment : Fragment(), CoroutineScope {
 
     private val homeViewModel by lazy { ViewModelProvider(this).get(HomeViewModel::class.java) }
-    private lateinit var statusList: List<Status>
+    private var statusList: List<Status>? = null
     private lateinit var recyclerView: RecyclerView
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var binding: FragmentHomeBinding
@@ -67,7 +66,7 @@ class HomeFragment : Fragment(), CoroutineScope {
         //设置recyclerView
         recyclerView = root.findViewById(R.id.home_timeline_recyclerview)
         recyclerView.layoutManager = GridLayoutManager(context, 1)
-//        recyclerView.setItemViewCacheSize(0)
+        recyclerView.addItemDecoration(TweetItemDecoration())
 
         //设置下拉刷新
         swipeRefreshLayout = root.findViewById(R.id.home_timeline_swipe_refresh)
@@ -76,7 +75,7 @@ class HomeFragment : Fragment(), CoroutineScope {
         }
 
         // pull home timeline
-        pullDownRefresh()
+        pullDownRefreshSwipe()
 
         return root
     }
@@ -87,24 +86,16 @@ class HomeFragment : Fragment(), CoroutineScope {
     }
 
     private fun pullDownRefreshSwipe() {
-        launch {
-            statusList =
-                TimelineUtil.pullHomeTimeline(HomepageActivity::twitter.call(activity))
-            Log.i(
-                "Twitter",
-                "pullDownRefreshSwipe > is statusList empty? > ${statusList.isEmpty()}"
-            )
-            recyclerView.adapter = TweetAdapter(statusList)
-            swipeRefreshLayout.isRefreshing = false
-        }
+        pullDownRefresh()
+        swipeRefreshLayout.isRefreshing = false
     }
 
     private fun pullDownRefresh() {
         launch {
-            statusList =
-                TimelineUtil.pullHomeTimeline(HomepageActivity::twitter.call(activity))
-            Log.i("Twitter", "pullDownRefresh > is statusList empty? > ${statusList.isEmpty()}")
-            recyclerView.adapter = TweetAdapter(statusList)
+            statusList = TimelineUtil.pullHomeTimeline(HomepageActivity::twitter.call(activity))
+            statusList?.let {
+                recyclerView.adapter = TweetAdapter(it)
+            }
         }
     }
 }
