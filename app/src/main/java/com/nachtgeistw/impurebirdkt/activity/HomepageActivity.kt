@@ -7,7 +7,6 @@
 
 package com.nachtgeistw.impurebirdkt.activity
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -25,18 +24,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.nachtgeistw.impurebirdkt.R
 import com.nachtgeistw.impurebirdkt.net.SendingUtil.sendTweet
-import com.nachtgeistw.impurebirdkt.net.TimelineUtil.pullHomeTimeline
 import com.nachtgeistw.impurebirdkt.util.ActivityCollector.finishAll
-import com.nachtgeistw.impurebirdkt.util.ImpureBirdApplication
 import com.nachtgeistw.impurebirdkt.util.ReturnCode.Companion.SEND_TWEET
-import com.nachtgeistw.impurebirdkt.util.TwitterErrorCode.Companion.DUPLICATE_CODE
 import com.nachtgeistw.impurebirdkt.util.Util.Companion.buildTwitter
 import com.nachtgeistw.impurebirdkt.util.Util.Companion.showToastShort
-import kotlinx.coroutines.*
-import twitter4j.*
-import twitter4j.auth.AccessToken
-import twitter4j.conf.ConfigurationBuilder
-import java.lang.Runnable
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.runBlocking
+import twitter4j.Status
+import twitter4j.Twitter
 import kotlin.coroutines.CoroutineContext
 
 class HomepageActivity : AppCompatActivity(), CoroutineScope {
@@ -53,8 +50,14 @@ class HomepageActivity : AppCompatActivity(), CoroutineScope {
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.i(
+            "Twitter",
+            "${javaClass.simpleName} > onCreate"
+        )
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_homepage)
+
         // Twitter4j init
         twitter = buildTwitter(this)
 
@@ -78,7 +81,6 @@ class HomepageActivity : AppCompatActivity(), CoroutineScope {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -116,7 +118,4 @@ class HomepageActivity : AppCompatActivity(), CoroutineScope {
             }
         }
     }
-
-
-
 }

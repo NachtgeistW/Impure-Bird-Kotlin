@@ -41,20 +41,20 @@
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
             app:layout_constrainedWidth="true"
-            app:layout_constraintEnd_toStartOf="@id/homepage_barrier"
+            app:layout_constraintEnd_toStartOf="@id/text_barrier"
             app:layout_constraintStart_toStartOf="@id/guideline_verticalS"
             app:layout_constraintTop_toBottomOf="@id/tweet_user_avatar" />
 
         <ImageView
             android:id="@+id/tweet_pic_1"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="2dp"
+            android:adjustViewBounds="true"
             android:background="@color/colorPicNotLoad"
-            android:scaleType="centerCrop"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="@id/guideline_vertical_35"
+            android:scaleType="fitStart"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toStartOf="@id/image_barrier"
             app:layout_constraintStart_toStartOf="@id/guideline_verticalS"
             app:layout_constraintTop_toBottomOf="@id/tweet_user_text"
             tools:ignore="ContentDescription" />
@@ -65,8 +65,8 @@
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            app:layout_constraintTop_toBottomOf="@id/tweet_pic_1"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tweet_pic_1" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_horizontalT"
@@ -104,11 +104,18 @@
             app:layout_constraintGuide_percent="0.95" />
 
         <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/homepage_barrier"
+            android:id="@+id/text_barrier"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="start"
             app:constraint_referenced_ids="guideline_verticalE, tweet_user_text" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/image_barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="start"
+            app:constraint_referenced_ids="guideline_verticalE, tweet_pic_1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

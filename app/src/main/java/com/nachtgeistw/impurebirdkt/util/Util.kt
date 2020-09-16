@@ -1,18 +1,18 @@
 package com.nachtgeistw.impurebirdkt.util
 
+import android.app.Activity
 import android.content.Context
+import android.content.res.Resources
+import android.util.DisplayMetrics
+import android.util.Log
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
-import com.nachtgeistw.impurebirdkt.activity.HomepageActivity
-import com.nachtgeistw.impurebirdkt.ui.TweetAdapter
-import twitter4j.Status
+import androidx.constraintlayout.widget.ConstraintLayout
 import twitter4j.Twitter
 import twitter4j.TwitterFactory
 import twitter4j.auth.AccessToken
 import twitter4j.conf.ConfigurationBuilder
-import kotlin.String
 
 open class Util {
     companion object {
@@ -25,6 +25,7 @@ open class Util {
         }
 
         fun buildTwitter(context: Context): Twitter {
+            Log.i("Twitter", "Util > buildTwitter")
             val sharedPreferences = context.getSharedPreferences("data", Context.MODE_PRIVATE)
             val builder = ConfigurationBuilder()
             builder.setOAuthConsumerKey(ImpureBirdApplication.CONSUMER_KEY)
@@ -35,17 +36,16 @@ open class Util {
             return TwitterFactory(builder.build()).getInstance(accessToken)
         }
 
-        fun loadImage(context: Context, tweet: Status, imageView: ImageView) {
-            Glide.with(context)
-                .load(tweet.mediaEntities[3].mediaURLHttps)
-                .into(imageView)
-        }
-
-        fun loadImageNoCache(context: Context, tweet: Status, imageView: ImageView) {
-            Glide.with(context)
-                .load(tweet.mediaEntities[3].mediaURLHttps)
-
-                .into(imageView)
+        //Auto adjust width and height
+        fun imageViewSelfAdaption(pic1: ImageView, maxHeightScale: Int = 5) {
+            val width: Int = Resources.getSystem().displayMetrics.widthPixels
+            val screenWidth = (width * 0.9).toInt()
+            val lp: ViewGroup.LayoutParams = pic1.layoutParams
+            lp.width = screenWidth
+            lp.height = ConstraintLayout.LayoutParams.WRAP_CONTENT
+            pic1.layoutParams = lp
+            pic1.maxWidth = screenWidth
+            pic1.maxHeight = screenWidth * maxHeightScale
         }
     }
 }

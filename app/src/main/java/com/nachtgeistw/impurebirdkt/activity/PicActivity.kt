@@ -22,5 +22,7 @@ class PicActivity : AppCompatActivity() {
                 .replace(R.id.container, PicFragment.newInstance())
                 .commitNow()
         }
+
+        supportActionBar?.hide()
     }
 }

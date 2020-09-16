@@ -33,7 +33,8 @@ class CallBackActivity : AppCompatActivity(), CoroutineScope {
         val uri = intent.data
         if (uri != null && uri.toString().startsWith("callback://CallBackActivity")) {
             launch {
-                val mToken = async(context = Dispatchers.IO) {           //asyncは値を返せる
+                val mToken = async(context = Dispatchers.IO) {
+                    //asyncは値を返せる
                     val verify = uri.getQueryParameter("oauth_verifier")
                     return@async MainActivity.mOauth.getOAuthAccessToken(
                         MainActivity.mRequest,
@@ -42,6 +43,8 @@ class CallBackActivity : AppCompatActivity(), CoroutineScope {
                 }.await()
                 if (mToken != null) {
                     isLogin = true
+                    editor.putString("token", mToken.token)
+                    editor.putString("token_secret", mToken.tokenSecret)
                 }
                 editor.putBoolean("is_login", isLogin)
                 editor.apply()
